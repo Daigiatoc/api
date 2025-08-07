@@ -1,0 +1,50 @@
+# Node modules
+node_modules/
+
+# Env files
+.env
+.env.*  # hỗ trợ nhiều môi trường .env.dev, .env.test...
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Output files
+dist/
+build/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Debug
+*.pid
+*.seed
+*.pid.lock
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Socket files
+*.sock
+
+# dotenv-backup
+.env.backup
+
+# Swagger UI cache (nếu có build)
+docs/swagger-ui-dist/
+
+# Misc
+.cache/
+.nyc_output/
+
+.test
