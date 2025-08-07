@@ -17,6 +17,6 @@ app.use("/api", routes);
 // Middleware xử lý lỗi cuối
 app.use(errorHandler);
 
-const setupSwagger = require("./docs/swagger");
+const setupSwagger = require("./docs/swagger"); //aa
 setupSwagger(app);
 module.exports = app;
