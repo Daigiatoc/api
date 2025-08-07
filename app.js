@@ -11,10 +11,12 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Routes
+// Tất cả routes sẽ đi qua /api
 app.use("/api", routes);
 
-// Middleware xử lý lỗi
+// Middleware xử lý lỗi cuối
 app.use(errorHandler);
 
+const setupSwagger = require("./docs/swagger");
+setupSwagger(app);
 module.exports = app;
