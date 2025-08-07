@@ -19,6 +19,8 @@ const options = {
         url: `${HOST}:${PORT}/api`,
         description: "Local server",
       },
+      { url: "https://api-staging-dgt.amazingtech.cc/api" },
+      { url: "https://api-prod-dgt.amazingtech.cc/api" },
     ],
     components: {
       securitySchemes: {
