@@ -1,5 +1,21 @@
 const mongoose = require("mongoose");
 
+const EducationItemSchema = new mongoose.Schema(
+  {
+    degree: {
+      type: String,
+      enum: ["PRIMARY", "SECONDARY", "BACHELOR", "MASTER", "PHD", "CERT"],
+      required: true,
+    },
+    field: String,
+    institution: String,
+    graduationYear: Number,
+    certificateUrl: String,
+    verified: { type: Boolean, default: false },
+  },
+  { _id: false }
+);
+
 const userSchema = new mongoose.Schema(
   {
     fullName: {
@@ -7,6 +23,26 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    familyName: {
+      type: String, // Họ tộc gốc, ví dụ "Nguyễn"
+      trim: true,
+    },
+    familyNameNormalized: {
+      type: String, // Họ tộc chuẩn hóa không dấu, ví dụ "nguyen"
+      trim: true,
+      lowercase: true,
+      index: true,
+    },
+    givenNames: {
+      type: String, // phần tên còn lại ngoài họ
+      trim: true,
+    },
+
+    clan: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Clan", // Liên kết sang bảng Clan
+    },
+
     email: {
       type: String,
       lowercase: true,
@@ -35,6 +71,15 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
 
+    // Linh Thạch (cache để hiển thị nhanh)
+    ltBalance: {
+      type: Number,
+      default: 0,
+    },
+
+    // Học vấn
+    education: [EducationItemSchema],
+
     // Cấp độ người dùng
     point: {
       type: Number,
@@ -49,6 +94,10 @@ const userSchema = new mongoose.Schema(
       enum: ["newbie", "bronze", "silver", "gold", "diamond"],
       default: "newbie",
     },
+    levelExp: {
+      type: Number,
+      default: 0,
+    }, // Điểm kinh nghiệm (tăng theo hành động)
 
     // Trạng thái tài khoản
     status: {
@@ -56,17 +105,12 @@ const userSchema = new mongoose.Schema(
       enum: ["active", "inactive", "banned"],
       default: "active",
     },
-
     role: {
       type: String,
       enum: ["user", "admin", "moderator"],
       default: "user",
     },
-    familyName: String, // Họ tộc
-    levelExp: {
-      type: Number,
-      default: 0,
-    }, // Điểm kinh nghiệm (tăng theo hành động)
+
     bio: {
       type: String,
       maxlength: 300,
@@ -75,20 +119,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       maxlength: 255,
     }, // Địa chỉ liên hệ
+
+    // OTP xác thực
     otp: {
       type: String,
     },
-
     otpExpiresAt: {
       type: Date,
     },
-
     otpVerified: {
       type: Boolean,
       default: false,
     },
   },
-
   {
     timestamps: true, // Thêm createdAt và updatedAt
   }
